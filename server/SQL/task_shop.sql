@@ -27,7 +27,8 @@ USE task_shop;
 --
 -- Структура таблицы `categories`
 --
-
+CREATE DATABASE IF NOT EXISTS task_shop;
+USE task_shop;
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
