@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Окт 19 2022 г., 11:34
+-- Время создания: Окт 20 2022 г., 08:19
 -- Версия сервера: 10.4.24-MariaDB
 -- Версия PHP: 8.1.6
 
@@ -20,15 +20,14 @@ SET time_zone = "+00:00";
 --
 -- База данных: `task_shop`
 --
+
+-- --------------------------------------------------------
 CREATE DATABASE IF NOT EXISTS task_shop;
 USE task_shop;
--- --------------------------------------------------------
-
 --
 -- Структура таблицы `categories`
 --
-CREATE DATABASE IF NOT EXISTS task_shop;
-USE task_shop;
+
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
@@ -64,7 +63,9 @@ CREATE TABLE `images` (
 INSERT INTO `images` (`id`, `ref`, `alt`) VALUES
 (1, 'v4Dpg8e48.jpg', 'Фото рубашки'),
 (2, 'awdsss8.jpg\r\n', 'Фото рубашки с другого ракурса'),
-(3, 'asd.jpg\r\n', 'Фото штанов');
+(3, 'asd.jpg\r\n', 'Фото штанов'),
+(4, '2.png', 'Фото рубашки с другого ракурса 2'),
+(5, '3.png', 'Фото рубашки с другого ракурса 3');
 
 -- --------------------------------------------------------
 
@@ -213,6 +214,19 @@ CREATE TABLE `product_main_images` (
 
 INSERT INTO `product_main_images` (`product_id`, `image_id`) VALUES
 (1, 1),
+(2, 2),
+(3, 2),
+(4, 2),
+(5, 2),
+(11, 2),
+(12, 2),
+(13, 2),
+(14, 2),
+(15, 2),
+(16, 2),
+(17, 2),
+(18, 2),
+(19, 2),
 (20, 2),
 (21, 3);
 
@@ -283,7 +297,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT для таблицы `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `products`
