@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Окт 20 2022 г., 09:42
+-- Время создания: Окт 24 2022 г., 15:42
 -- Версия сервера: 10.4.24-MariaDB
 -- Версия PHP: 8.1.6
 
@@ -42,7 +42,8 @@ INSERT INTO `categories` (`id`, `name`, `description`) VALUES
 (1, 'Рубашки Medicine', 'no desc'),
 (2, 'Все модели Medicine', 'no desc'),
 (3, 'Рубашки', 'no desc'),
-(4, 'Штаны', 'Штаны, да');
+(4, 'Штаны', 'Штаны, да'),
+(5, 'Платья', 'товаров тут точно нет');
 
 -- --------------------------------------------------------
 
@@ -88,7 +89,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `title`, `price`, `price_no_discount`, `price_promo`, `description`, `quantity`) VALUES
-(1, 'Рубашка Medicine', '2499.00', '2699.00', '2227.00', 'Рубашка выполнена...', 100),
+(1, 'Рубашка Medicine', '2499.00', '2699.00', '2227.00', 'Рубашка выполнена...', 0),
 (2, 'Рубашка Medicine 2', '2500.00', '2699.00', '2227.00', 'Рубашка выполнена...', 100),
 (3, 'Рубашка Medicine 4', '2500.00', '2699.00', '2227.00', 'Рубашка выполнена...', 100),
 (4, 'Рубашка Medicine 5', '2500.00', '2699.00', '2227.00', 'Рубашка выполнена...', 100),
@@ -333,7 +334,7 @@ ALTER TABLE `product_main_images`
 -- AUTO_INCREMENT для таблицы `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `images`
