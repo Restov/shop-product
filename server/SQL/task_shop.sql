@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Окт 24 2022 г., 15:42
+-- Время создания: Окт 25 2022 г., 11:30
 -- Версия сервера: 10.4.24-MariaDB
 -- Версия PHP: 8.1.6
 
@@ -44,6 +44,35 @@ INSERT INTO `categories` (`id`, `name`, `description`) VALUES
 (3, 'Рубашки', 'no desc'),
 (4, 'Штаны', 'Штаны, да'),
 (5, 'Платья', 'товаров тут точно нет');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `id` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `year` int(4) NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `theme` varchar(45) NOT NULL,
+  `message` text NOT NULL,
+  `checked` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Дамп данных таблицы `feedback`
+--
+
+INSERT INTO `feedback` (`id`, `name`, `email`, `year`, `gender`, `theme`, `message`, `checked`) VALUES
+(1, 's', 'test@gmail.com', 2222, 'awadwa', 'awdawdaw', 'dawdawdawdad', 1),
+(2, 'Роман', 'romankotovv@gmail.com', 2002, 'male', '&lt;h1&gt;123&lt;/h1&gt;', 'awdawd', 1),
+(3, 'Роман', 'romankotovv@gmail.com', 2002, 'male', 'awdawd', ', checked = 0', 1),
+(4, 'Роман', 'romankotovv@gmail.com', 2002, 'male', '&lt;h1&gt;123&lt;/h1&gt;', 'awc, checked =&#039;1', 1),
+(5, '123', 'romankotovv@gmail.com', 2021, 'male', '&lt;h1&gt;123&lt;/h1&gt;', 'awda', 1),
+(6, '123', 'res7ov@gmail.com', 2018, 'male', 'awd', 'wad', 1);
 
 -- --------------------------------------------------------
 
@@ -124,54 +153,37 @@ CREATE TABLE `product_categories` (
 INSERT INTO `product_categories` (`product_id`, `category_id`) VALUES
 (1, 1),
 (1, 2),
-(1, 3),
 (2, 1),
 (2, 2),
-(2, 3),
 (3, 1),
 (3, 2),
-(3, 3),
 (4, 1),
 (4, 2),
-(4, 3),
 (1, 1),
 (1, 2),
-(1, 3),
 (5, 1),
 (5, 2),
-(5, 3),
-(21, 4),
 (21, 2),
 (11, 2),
 (11, 1),
-(11, 3),
 (12, 1),
 (12, 2),
-(12, 3),
 (13, 1),
 (13, 2),
-(13, 3),
 (14, 1),
 (14, 2),
-(14, 3),
 (15, 1),
 (15, 2),
-(15, 3),
 (16, 1),
 (16, 2),
-(16, 3),
 (17, 1),
 (17, 2),
-(17, 3),
 (18, 1),
 (18, 2),
-(18, 3),
 (19, 1),
 (19, 2),
-(19, 3),
 (20, 1),
-(20, 2),
-(20, 3);
+(20, 2);
 
 -- --------------------------------------------------------
 
@@ -189,22 +201,6 @@ CREATE TABLE `product_images` (
 --
 
 INSERT INTO `product_images` (`product_id`, `image_id`) VALUES
-(1, 1),
-(2, 2),
-(3, 2),
-(4, 2),
-(5, 2),
-(11, 2),
-(12, 2),
-(13, 2),
-(14, 2),
-(15, 2),
-(16, 2),
-(17, 2),
-(18, 2),
-(19, 2),
-(20, 2),
-(21, 3),
 (1, 2);
 
 -- --------------------------------------------------------
@@ -285,6 +281,12 @@ ALTER TABLE `categories`
   ADD UNIQUE KEY `name` (`name`);
 
 --
+-- Индексы таблицы `feedback`
+--
+ALTER TABLE `feedback`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `images`
 --
 ALTER TABLE `images`
@@ -335,6 +337,12 @@ ALTER TABLE `product_main_images`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT для таблицы `feedback`
+--
+ALTER TABLE `feedback`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `images`
