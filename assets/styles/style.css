@@ -290,3 +290,7 @@ input[type=number] {
     width: 380px;
     height: 522px;
 }
+body{
+    margin-left: 20px;
+    margin-right: 20px;
+}

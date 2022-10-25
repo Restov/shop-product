@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Окт 25 2022 г., 11:30
+-- Время создания: Окт 25 2022 г., 18:01
 -- Версия сервера: 10.4.24-MariaDB
 -- Версия PHP: 8.1.6
 
@@ -67,12 +67,10 @@ CREATE TABLE `feedback` (
 --
 
 INSERT INTO `feedback` (`id`, `name`, `email`, `year`, `gender`, `theme`, `message`, `checked`) VALUES
-(1, 's', 'test@gmail.com', 2222, 'awadwa', 'awdawdaw', 'dawdawdawdad', 1),
-(2, 'Роман', 'romankotovv@gmail.com', 2002, 'male', '&lt;h1&gt;123&lt;/h1&gt;', 'awdawd', 1),
-(3, 'Роман', 'romankotovv@gmail.com', 2002, 'male', 'awdawd', ', checked = 0', 1),
-(4, 'Роман', 'romankotovv@gmail.com', 2002, 'male', '&lt;h1&gt;123&lt;/h1&gt;', 'awc, checked =&#039;1', 1),
-(5, '123', 'romankotovv@gmail.com', 2021, 'male', '&lt;h1&gt;123&lt;/h1&gt;', 'awda', 1),
-(6, '123', 'res7ov@gmail.com', 2018, 'male', 'awd', 'wad', 1);
+(104, 'Роман', 'romanbakhmann@yanwdex.ru', 2002, 'male', 'awd', '123', 1),
+(105, 'Роман', 'romanbakhmann@yanwdex.ru', 2002, 'male', '123', 'awdwdawd', 1),
+(106, 'Роман Бахманн', 'romanbakhmann@yandex.ru', 2002, 'male', 'Тема для теста', 'Сообщение', 1),
+(107, 'Роман', 'romanbakhmann@yandex.ru', 2002, 'male', 'Тема для теста', '&lt;h1&gt;123&lt;/h1&gt; &#039;UNION &#039; &quot; &#039; `', 1);
 
 -- --------------------------------------------------------
 
@@ -342,7 +340,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT для таблицы `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT для таблицы `images`

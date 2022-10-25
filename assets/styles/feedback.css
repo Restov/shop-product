@@ -1,0 +1,21 @@
+.form-control{
+    width: 20%;
+    margin: 0 auto;
+    margin-top: 5px;
+}
+label{
+    margin-top: 20px;
+}
+.btn{
+    margin-top: 20px;
+}
+.radios{
+    margin-bottom: 20px;
+}
+.btn-back{
+    width: 30% !important;
+    margin-top: 20px !important;
+
+    margin: 0 auto;
+    
+}
