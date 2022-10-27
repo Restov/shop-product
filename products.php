@@ -1,12 +1,17 @@
 <?php
-require_once('connection.php');
+
 require_once('req.php');
 require_once('validate.php');
 list($id, $offset, $page) = validateProductsPage($_GET);
 $category = categoryDesc($conn, $id);
+
 $products = getProductsByCategory($conn, $id, $offset);
-validateQueries($products);
-validateQueries($category);
+if (!$category || !$products) {
+    header('Location: 404.php');
+    exit;
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +29,7 @@ validateQueries($category);
     <h2>Раздел - <?php echo $category['name']; ?></h2>
     <p><?php echo $category['description']; ?></p>
     <button class="btn btn-primary" onclick="location.href='index.php'">Назад</button>
-
+    
     <nav style="margin-top:10px;">
         <ul class="pagination">
             <?php
@@ -47,12 +52,13 @@ validateQueries($category);
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <?php
                 foreach ($products as $product) {
+                    $main_cat = getMainCategoryName($conn, $product['id']);
                     echo '<div class="col">
                     <div class="card shadow-sm">
                         <img src = "' . $path . $product['ref'] . '" alt = "' . $product['alt'] . '">
                         <div class="card-body">
                         <h5 class="card-text">' . $product['title'] . '</h5>
-                            <p class="card-text"> </p>';
+                            <p class="card-text">'.$main_cat['main_cat_name'] . '</p>';
                     echo '<div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                 <button onclick="location.href=`product.php?id=' . $product['id'] . '`" type="button" class="btn btn-sm btn-outline-secondary">Посмотреть</button>
