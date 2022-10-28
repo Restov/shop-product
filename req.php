@@ -51,10 +51,8 @@ function getProductsByCategory($conn, $id, $offset)
         INNER JOIN product_main_images as pmi ON pmi.product_id = p.id
         INNER JOIN images as i ON pmi.image_id = i.id
         WHERE z.category_id = :id AND p.quantity > 0 LIMIT 12 OFFSET :offset";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindValue(':id', $id);
-    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-    $stmt->execute();
+        
+    $stmt = createRequest($conn, $sql, ['id' => $id, 'offset' => (int)$offset]);
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $products;
 }
