@@ -96,16 +96,6 @@ function getMainCategory($conn, $id)
     return $main_cat;
 }
 
-function getMainCategoryName($conn, $id)
-{
-    $sql = "SELECT c.name as main_cat_name
-    FROM product_main_categories as pmc
-    INNER JOIN categories as c ON c.id = pmc.category_id
-    WHERE pmc.product_id = :id;";
-    $stmt = createRequest($conn, $sql, ['id' => $id]);
-    $main_cat = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $main_cat;
-}
 
 function getProductImages($conn, $id)
 {

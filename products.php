@@ -52,13 +52,12 @@ if (!$category || !$products) {
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <?php
                 foreach ($products as $product) {
-                    $main_cat = getMainCategoryName($conn, $product['id']);
                     echo '<div class="col">
                     <div class="card shadow-sm">
                         <img src = "' . $path . $product['ref'] . '" alt = "' . $product['alt'] . '">
                         <div class="card-body">
                         <h5 class="card-text">' . $product['title'] . '</h5>
-                            <p class="card-text">'.$main_cat['main_cat_name'] . '</p>';
+                            <p class="card-text">'.$product['main_cat']. '</p>';
                     echo '<div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                 <button onclick="location.href=`product.php?id=' . $product['id'] . '`" type="button" class="btn btn-sm btn-outline-secondary">Посмотреть</button>
