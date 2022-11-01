@@ -78,7 +78,7 @@ function getProductCategories($conn, $id)
 }
 function getProductInfo($conn, $id)
 {
-    $sql = "SELECT title, price, price_no_discount, price_promo, description
+    $sql = "SELECT title, price, price_no_discount, price_promo, description, quantity
     FROM products
     WHERE id = :id;";
     $stmt = createRequest($conn, $sql, ['id' => $id]);

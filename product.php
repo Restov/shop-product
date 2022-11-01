@@ -45,9 +45,15 @@ if (!$product || !$cats || !$main_cat || !$images || !$mainImage) {
                 echo ">Назад</a>";
             }
         } else {
-            echo "<a class='btn btn-primary'";
-            echo "href='products.php?cat_id=" .  $main_cat['main_cat_id'] . "'";
-            echo ">Назад</a>";
+            if ($product['quatity'] < 1) {
+                echo "<a class='btn btn-primary'";
+                echo "href = \"404.php\"";
+                echo ">Назад</a>";
+            } else {
+                echo "<a class='btn btn-primary'";
+                echo "href='products.php?cat_id=" .  $main_cat['main_cat_id'] . "'";
+                echo ">Назад</a>";
+            }
         }
 
         ?>
@@ -81,10 +87,15 @@ if (!$product || !$cats || !$main_cat || !$images || !$mainImage) {
                             промокодом</span>
                     </div>
                     <div class="product__info">
-                        <div class="product__info-item"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14px" height="10px">
-                                <image x="0px" y="0px" width="14px" height="10px" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAKCAQAAAAu0KdMAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmCgoXKiKKppLDAAAAUElEQVQY022NyxXAMAzCBGN0/z3pwanzabj5yQg9BHFJwBPlQODZ0oEik70CqVvCP2M0NMFlS1YhgxtQUPGs4xla7a1P47qjdvWvcL+rBta8LIobLU8QlSgAAAAASUVORK5CYII=" />
-                            </svg>В наличии в магазине <a href="#">Lamoda</a>
-                        </div>
+                        <?php if ($product['quantity'] < 1) {
+                            echo "<div class='product__info-item product__info-item--red'>Нет в наличии</div>";
+                        }
+                        else{
+                            echo "<div class='product__info-item'> <svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='14px' height='10px'>";
+                            echo "<image x = '0px' y='0px' width='14px' height='10px' xlink:href='data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAKCAQAAAAu0KdMAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmCgoXKiKKppLDAAAAUElEQVQY022NyxXAMAzCBGN0/z3pwanzabj5yQg9BHFJwBPlQODZ0oEik70CqVvCP2M0NMFlS1YhgxtQUPGs4xla7a1P47qjdvWvcL+rBta8LIobLU8QlSgAAAAASUVORK5CYII=' />";
+                            echo "</svg>В наличии в магазине <a href='index.php'>Lamoda</a></div>";    
+                        }
+                        ?>
                         <div class="product__info-item"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17px" height="13px">
                                 <image x="0px" y="0px" width="17px" height="13px" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAANCAQAAADlcE2RAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmCgoXKxvMuCuKAAAAcUlEQVQY02WQyRHAIAwDV4yrSP99Kg87ICa8fMg60GMAMOpC3e2Sgtjw79wQ3wDfyOWpfO3yLcWBfjSg4yXlRGLr9Ldhj7yoRoZheUSN0A4tBbGS0lB9ZYs5+tZ7sti0GTszTSLrEMxP6TNcoX8lOwFeff4iVDDZtBgAAAAASUVORK5CYII=" />
                             </svg>Бесплатная доставка</div>
