@@ -24,9 +24,9 @@
         return $i;
     }
     session_start();
-    
+
     if (count($_POST) > 0) {
-        if($_POST['token'] != $_SESSION['token']){
+        if ($_POST['token'] != $_SESSION['token']) {
             die();
         }
         $name = validateInput($_POST['name']);
@@ -104,17 +104,15 @@
             Сообщение отправлено!
             </div>";
             insertFeedback($conn, $params);
-            
         }
-    }
-    else{
-        if(isset($_COOKIE['name'])){
+    } else {
+        if (isset($_COOKIE['name'])) {
             $name = validateInput($_COOKIE['name']);
         }
-        if(isset($_COOKIE['email'])){
+        if (isset($_COOKIE['email'])) {
             $email = validateInput($_COOKIE['email']);
         }
-        if(isset($_COOKIE['year'])){
+        if (isset($_COOKIE['year'])) {
             $year = validateInput($_COOKIE['year']);
         }
 
@@ -127,13 +125,15 @@
             <h1 class="h3 mb-3 font-weight-normal">Обратная связь</h1>
             <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
             <label for="inputName" class="sr-only">Имя</label>
-            <input type="text" id="inputName" class="form-control" placeholder="Имя" name="name" <?php if (isset($name)) echo "value = ".$name;?> required autofocus>
+            <input type="text" id="inputName" class="form-control" placeholder="Имя" name="name" <?php if (isset($name) && $name) {
+                                                                                                        echo "value='$name'";
+                                                                                                    } ?> required autofocus>
 
             <label for="inputEmail" class="sr-only">Email</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email" name="email" <?php if(isset($email)) echo "value = ".$email ?> required>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email" name="email" <?php if (isset($email) && $email != '') echo "value = " . $email; ?> required>
             <label for="year" class="sr-only">Год рождения</label>
             <select class="form-control" id="year" name="year">
-                <?= '<option value="' . $year . '">' . $year . '</option>'?>
+                <?= '<option value="' . $year . '">' . $year . '</option>' ?>
                 <?php
                 for ($i = 2021; $i >= 1900; $i--) {
                     if ($i != $year)
@@ -161,9 +161,11 @@
                 <label for="female">Женский</label>
             </div>
             <laberl for="theme" class="sr-only">Тема</laberl>
-            <input type="text" id="theme" class="form-control" placeholder="Тема" name="theme" <?php if(isset($theme)) echo "value = ".$theme;?> required>
+            <input type="text" id="theme" class="form-control" placeholder="Тема" name="theme" <?php if (isset($theme) && $theme) {
+                                                                                                    echo "value='$theme'";
+                                                                                                } ?> required>
             <label for="inputMessage" class="sr-only">Сообщение</label>
-            <textarea class="form-control" id="inputMessage" rows="3" name="message" required><?php if(isset($message)) echo $message?></textarea>
+            <textarea class="form-control" id="inputMessage" rows="3" name="message" required><?php if (isset($message)) echo $message ?></textarea>
             <label for="check" class="sr-only">С контрактом ознакомлен</label>
             <input type="checkbox" id="check" name="check" value="1" required>
             <br>
