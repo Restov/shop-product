@@ -28,7 +28,7 @@ if (!$category || !$products) {
     <?php require_once('header.php'); ?>
     <h2>Раздел - <?php echo $category['name']; ?></h2>
     <p><?php echo $category['description']; ?></p>
-    <button class="btn btn-primary" onclick="location.href='index.php'">Назад</button>
+    <a class="btn btn-primary"  href="index.php">Назад</a>
     
     <nav style="margin-top:10px;">
         <ul class="pagination">
@@ -60,9 +60,8 @@ if (!$category || !$products) {
                             <p class="card-text">'.$product['main_cat']. '</p>';
                     echo '<div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                <button onclick="location.href=`product.php?id=' . $product['id'] . '`" type="button" class="btn btn-sm btn-outline-secondary">Посмотреть</button>
+                                <a href="product.php?id=' . $product['id'] . '" class="btn btn-sm btn-outline-secondary">Посмотреть</a>                              
                                 </div>
-
                             </div>
                         </div>
                     </div>

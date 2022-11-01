@@ -1,5 +1,4 @@
 <?php
-require_once("connection.php");
 require_once('req.php');
 ?>
 
@@ -31,7 +30,7 @@ require_once('req.php');
                     echo "<h3>$category[name]</h3>";
                     echo "<p class='card-text'>$category[description]</p>";
                     echo "<div class = 'd-flex justify-content-between align-items-center'>";
-                    echo "<button onclick='location.href=`products.php?cat_id=$category[id]`' type='button' class='btn btn-sm btn-outline-secondary'>Посмотреть товары</button>";
+                    echo "<a href=products.php?cat_id=$category[id] class='btn btn-sm btn-outline-secondary'>Посмотреть товары</a>";
                     echo "<small class='text-muted'>Осталось: $category[product_count] шт.</small>";
                     echo "</div>";
                     echo "</div>";

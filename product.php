@@ -33,21 +33,21 @@ if (!$product || !$cats || !$main_cat || !$images || !$mainImage) {
     <body>
         <?php
         require_once('header.php');
-        $referer = explode('/', $_SERVER['HTTP_REFERER']);
-        $referer = end($referer);
-        $referer = explode('?', $referer);
-        $referer = $referer[0];
-        if (isset($_SERVER['HTTP_REFERER']) && $referer == 'products.php') {
-            $cat_id = explode('=', $_SERVER['HTTP_REFERER'])[1];
-            $cat_name = getCategoryName($conn, $cat_id);
-            echo '<div>' . $cat_name['name'] . '</div>';
-            echo "<button class='btn btn-primary'";
-            echo "onclick='window.location.href = \"" . $_SERVER['HTTP_REFERER'] . "\"'";
-            echo ">Назад</button>";
+
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $url = parse_url($_SERVER['HTTP_REFERER']);
+            if ($url['path'] == '/products.php') {
+                $cat_id = $url['query'][-1];
+                $cat_name = getCategoryName($conn, $cat_id);
+                echo '<div>' . $cat_name['name'] . '</div>';
+                echo "<a class='btn btn-primary'";
+                echo "href = \"" . $_SERVER['HTTP_REFERER'] . "\"'";
+                echo ">Назад</a>";
+            }
         } else {
-            echo "<button class='btn btn-primary'";
-            echo "onclick= location.href='products.php?cat_id=" .  $main_cat['main_cat_id'] . "'";
-            echo ">Назад</button>";
+            echo "<a class='btn btn-primary'";
+            echo "href='products.php?cat_id=" .  $main_cat['main_cat_id'] . "'";
+            echo ">Назад</a>";
         }
 
         ?>
