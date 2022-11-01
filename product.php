@@ -45,7 +45,7 @@ if (!$product || !$cats || !$main_cat || !$images || !$mainImage) {
                 echo ">Назад</a>";
             }
         } else {
-            if ($product['quatity'] < 1) {
+            if ($product['quantity'] < 1) {
                 echo "<a class='btn btn-primary'";
                 echo "href = \"404.php\"";
                 echo ">Назад</a>";
