@@ -9,15 +9,31 @@ function validateInput($i)
 }
 session_start();
 $output = "";
+$gender = "male";
 if (count($_POST) > 0) {
     if ($_POST['token'] != $_SESSION['token']) {
         die();
     }
-    $name = validateInput($_POST['name']);
-    $email = validateInput($_POST['email']);
-    $message = validateInput($_POST['message']);
-    $theme = validateInput($_POST['theme']);
-    $year = validateInput($_POST['year']);
+    $name = "";
+    $email = "";
+    $message = "";
+    $theme = "";
+    $year = "";
+    if(isset($_POST['name'])) {
+        $name = validateInput($_POST['name']);
+    }
+    if(isset($_POST['email'])) {
+        $email = validateInput($_POST['email']);
+    }
+    if(isset($_POST['message'])) {
+        $message = validateInput($_POST['message']);
+    }
+    if(isset($_POST['theme'])) {
+        $theme = validateInput($_POST['theme']);
+    }
+    if(isset($_POST['year'])) {
+        $year = validateInput($_POST['year']);
+    }
     if (isset($_POST['gender'])) {
         $gender = validateInput($_POST['gender']);
     }
@@ -99,15 +115,13 @@ if (count($_POST) > 0) {
     if (isset($_COOKIE['year'])) {
         $year = validateInput($_COOKIE['year']);
     }
+    if (isset($_COOKIE['gender'])) {
+        $gender = validateInput($_COOKIE['gender']);
+    }
 
     $_SESSION['token'] = bin2hex(random_bytes(32));
 }
-$gender = 0;
-if (isset($_POST['gender'])) {
-    $gender = validateInput($_POST['gender']);
-} else if (isset($_COOKIE['gender'])) {
-    $gender = validateInput($_COOKIE['gender']);
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
