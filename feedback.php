@@ -1,3 +1,114 @@
+<?php
+require_once('req.php');
+function validateInput($i)
+{
+    $i = trim($i);
+    $i = stripslashes($i);
+    $i = htmlspecialchars($i);
+    return $i;
+}
+session_start();
+$output = "";
+if (count($_POST) > 0) {
+    if ($_POST['token'] != $_SESSION['token']) {
+        die();
+    }
+    $name = validateInput($_POST['name']);
+    $email = validateInput($_POST['email']);
+    $message = validateInput($_POST['message']);
+    $theme = validateInput($_POST['theme']);
+    $year = validateInput($_POST['year']);
+    if (isset($_POST['gender'])) {
+        $gender = validateInput($_POST['gender']);
+    }
+    $checked = 0;
+    if (isset($_POST['check'])) {
+        $checked = validateInput($_POST['check']);
+    }
+    $valid = true;
+    if (!preg_match("/^[a-zA-Zа-яА-Я0-9\s]{1,45}$/u", $name)) {
+        $valid = false;
+        $output .= "<div class='alert alert-danger' role='alert'>
+        Введите имя! (Максимум 45 символов)
+      </div>";
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $valid = false;
+        $output .= "<div class='alert alert-danger' role='alert'>
+            Введите корректный email!
+          </div>";
+    }
+    if (empty($message)) {
+        $valid = false;
+        $output .= "<div class='alert alert-danger' role='alert'>
+            Введите сообщение!
+          </div>";
+    }
+
+    if (!preg_match("/^[a-zA-Zа-яА-Я0-9\s]{1,45}$/u", $theme)) {
+        $valid = false;
+        $output .= "<div class='alert alert-danger' role='alert'>
+            Введите тему! (Максимум 45 символов)
+          </div>";
+    }
+    if (!isset($gender)) {
+        $valid = false;
+        $output .= "<div class='alert alert-danger' role='alert'>
+            Выберите пол!
+          </div>";
+    }
+    if (!preg_match("/^[0-9]{4}$/", $year)) {
+        $valid = false;
+        $output .= "<div class='alert alert-danger' role='alert'>
+            Введите корректный год!
+          </div>";
+    }
+    if ($checked == 0) {
+        $valid = false;
+        $output .= "<div class='alert alert-danger' role='alert'>
+            Вы должны согласиться с условиями!
+          </div>";
+    }
+
+    if ($name && $email && $message && $theme && $year && $checked && $valid) {
+        $params = [
+            'name' => $name,
+            'email' => $email,
+            'message' => $message,
+            'theme' => $theme,
+            'year' => $year,
+            'gender' => $gender,
+            'checked' => $checked
+        ];
+        setcookie('name', $name, time() + 3600 * 24 * 365);
+        setcookie('email', $email, time() + 3600 * 24 * 365);
+        setcookie('year', $year, time() + 3600 * 24 * 365);
+        setcookie('gender', $gender, time() + 3600 * 24 * 365);
+        $output .= "<div class='alert alert-success' role='alert'>
+            Сообщение отправлено!
+            </div>";
+        insertFeedback($conn, $params);
+    }
+} else {
+    if (isset($_COOKIE['name'])) {
+        $name = validateInput($_COOKIE['name']);
+    }
+    if (isset($_COOKIE['email'])) {
+        $email = validateInput($_COOKIE['email']);
+    }
+    if (isset($_COOKIE['year'])) {
+        $year = validateInput($_COOKIE['year']);
+    }
+
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+}
+$gender = 0;
+if (isset($_POST['gender'])) {
+    $gender = validateInput($_POST['gender']);
+} else if (isset($_COOKIE['gender'])) {
+    $gender = validateInput($_COOKIE['gender']);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,108 +126,8 @@
 <body class="text-center">
     <?php
     require_once('header.php');
-    require_once('req.php');
-    function validateInput($i)
-    {
-        $i = trim($i);
-        $i = stripslashes($i);
-        $i = htmlspecialchars($i);
-        return $i;
-    }
-    session_start();
-
-    if (count($_POST) > 0) {
-        if ($_POST['token'] != $_SESSION['token']) {
-            die();
-        }
-        $name = validateInput($_POST['name']);
-        $email = validateInput($_POST['email']);
-        $message = validateInput($_POST['message']);
-        $theme = validateInput($_POST['theme']);
-        $year = validateInput($_POST['year']);
-        if (isset($_POST['gender'])) {
-            $gender = validateInput($_POST['gender']);
-        }
-        $checked = 0;
-        if (isset($_POST['check'])) {
-            $checked = validateInput($_POST['check']);
-        }
-        $valid = true;
-        if (!preg_match("/^[a-zA-Zа-яА-Я0-9\s]{1,45}$/u", $name)) {
-            $valid = false;
-            echo "<div class='alert alert-danger' role='alert'>
-            Введите имя! (Максимум 45 символов)
-          </div>";
-        }
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $valid = false;
-            echo "<div class='alert alert-danger' role='alert'>
-            Введите корректный email!
-          </div>";
-        }
-        if (empty($message)) {
-            $valid = false;
-            echo "<div class='alert alert-danger' role='alert'>
-            Введите сообщение!
-          </div>";
-        }
-
-        if (!preg_match("/^[a-zA-Zа-яА-Я0-9\s]{1,45}$/u", $theme)) {
-            $valid = false;
-            echo "<div class='alert alert-danger' role='alert'>
-            Введите тему! (Максимум 45 символов)
-          </div>";
-        }
-        if (!isset($gender)) {
-            $valid = false;
-            echo "<div class='alert alert-danger' role='alert'>
-            Выберите пол!
-          </div>";
-        }
-        if (!preg_match("/^[0-9]{4}$/", $year)) {
-            $valid = false;
-            echo "<div class='alert alert-danger' role='alert'>
-            Введите корректный год!
-          </div>";
-        }
-        if ($checked == 0) {
-            $valid = false;
-            echo "<div class='alert alert-danger' role='alert'>
-            Вы должны согласиться с условиями!
-          </div>";
-        }
-
-        if ($name && $email && $message && $theme && $year && $checked && $valid) {
-            $params = [
-                'name' => $name,
-                'email' => $email,
-                'message' => $message,
-                'theme' => $theme,
-                'year' => $year,
-                'gender' => $gender,
-                'checked' => $checked
-            ];
-            setcookie('name', $name, time() + 3600 * 24 * 365);
-            setcookie('email', $email, time() + 3600 * 24 * 365);
-            setcookie('year', $year, time() + 3600 * 24 * 365);
-            setcookie('gender', $gender, time() + 3600 * 24 * 365);
-            echo "<div class='alert alert-success' role='alert'>
-            Сообщение отправлено!
-            </div>";
-            insertFeedback($conn, $params);
-        }
-    } else {
-        if (isset($_COOKIE['name'])) {
-            $name = validateInput($_COOKIE['name']);
-        }
-        if (isset($_COOKIE['email'])) {
-            $email = validateInput($_COOKIE['email']);
-        }
-        if (isset($_COOKIE['year'])) {
-            $year = validateInput($_COOKIE['year']);
-        }
-
-        $_SESSION['token'] = bin2hex(random_bytes(32));
+    if ($output != "") {
+        echo $output;
     }
     ?>
 
@@ -144,16 +155,6 @@
             <label class="sr-only">Пол</label><br>
 
             <div class="radios">
-                <?php
-                $gender = 0;
-                if (isset($_POST['gender'])) {
-                    $gender = $_POST['gender'];
-                    $gender = validateInput($gender);
-                } else if (isset($_COOKIE['gender'])) {
-                    $gender = $_COOKIE['gender'];
-                    $gender = validateInput($gender);
-                }
-                ?>
                 <input type="radio" id="gender1" name="gender" value="male" <?php if ($gender == 'male') echo "checked = 'checked'" ?>>
                 <label for="male">Мужской</label>
                 <br>
